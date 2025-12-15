@@ -1,0 +1,81 @@
+Yeu cau:
+1. Viet chuong trinh quan ly tai khoan va dang nhap su dung ma hoa MD5
+2. Chuong trinh chay theo menu console
+   1. Add account
+   2. Login
+   3. Exit
+
+Chuc nang he thong:
+- Them tai khoan moi
+- Dang nhap tai khoan
+- Kiem tra du lieu dau vao
+- Ma hoa mat khau bang MD5
+
+Mo ta xu ly Add Account:
+- Nhap username
+  + khong duoc rong
+  + khong duoc trung
+- Nhap password
+  + khong duoc rong
+  + se duoc ma hoa MD5 truoc khi luu
+- Nhap name (khong bat buoc validate)
+- Nhap phone
+  + chi chua so
+  + do dai 10 hoac 11 chu so
+- Nhap email
+  + dung dinh dang email (regex)
+- Nhap address
+- Nhap dob
+  + dinh dang dd/MM/yyyy
+  + ngay phai hop le
+
+Xu ly password:
+- Nguoi dung nhap password dang text
+- He thong ma hoa password bang MD5
+- Chi luu gia tri MD5, khong luu password goc
+
+Mo ta chuc nang Login:
+- Nhap username
+- Nhap password
+- Ma hoa password nhap vao bang MD5
+- So sanh username va password MD5 voi du lieu da luu
+- Neu dung -> login success
+- Neu sai -> login failed
+
+Cac function chinh:
+- addAccount():
+  + validate du lieu
+  + ma hoa password
+  + luu tai khoan vao danh sach
+- login():
+  + ma hoa password
+  + kiem tra thong tin dang nhap
+- isUsernameExist():
+  + kiem tra trung username
+
+Cac function trong Util:
+- InputNotEmpty(): nhap chuoi khong rong
+- InputPhone(): kiem tra so dien thoai
+- InputEmail(): kiem tra email
+- InputDate(): kiem tra ngay sinh
+- isValidEmail(): regex email
+- isValidDate(): kiem tra ngay hop le
+- md5Encrypt(): ma hoa MD5
+
+Luong hoat dong:
+1. Hien thi menu
+2. Nguoi dung chon chuc nang
+3. Nhap du lieu
+4. He thong validate
+5. Thuc hien add account hoac login
+6. Hien thi ket qua
+7. Quay lai menu hoac thoat
+
+Test case:
+1. Username rong -> bao loi
+2. Username trung -> bao loi
+3. Phone sai dinh dang -> nhap lai
+4. Email sai -> nhap lai
+5. Dob sai -> nhap lai
+6. Dang nhap sai username hoac password -> login failed
+7. Dang nhap dung -> login success
