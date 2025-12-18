@@ -80,18 +80,66 @@ public class Main {
 
                     // Option 2: Login
                     case 2:
-                        // Input login credentials
+                        // Input username
                         System.out.print("Username: ");
                         String u = sc.nextLine();
 
+                        // Input password
                         System.out.print("Password: ");
                         String p = sc.nextLine();
 
                         // Perform login
-                        if (!manager.login(u, p)) {
+                        if (manager.login(u, p)) {
+
+                            // Ask user whether to change password
+                            System.out.print("Do you want change password now? (Y/N): ");
+                            String choiceChange = sc.nextLine();
+
+                            // User chooses to change password
+                            if (choiceChange.equalsIgnoreCase("Y")) {
+
+                                // Input old password
+                                System.out.print("Old password: ");
+                                String oldPass = sc.nextLine();
+
+                                String newPass;
+                                String reNewPass;
+                                // Loop until new password is valid
+                                while (true) {
+                                    // Input new password
+                                    System.out.print("New password: ");
+                                    newPass = sc.nextLine();
+
+                                    // New password cannot be empty
+                                    if (newPass == null || newPass.trim().isEmpty()) {
+                                        System.out.println("New password cannot be empty");
+                                        continue;
+                                    }
+                                    // Re-enter new password
+                                    System.out.print("Renew password: ");
+                                    reNewPass = sc.nextLine();
+
+                                    // Check confirm password
+                                    if (!newPass.equals(reNewPass)) {
+                                        System.out.println("Renew password does not match");
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                // Call change password function
+                                if (manager.changePassword(u, oldPass, newPass)) {
+                                    System.out.println("Change password successfully!");
+                                } else {
+                                    System.out.println("Old password is incorrect!");
+                                }
+                            }
+
+                        } else {
+                            // Login failed
                             System.out.println("Login failed!");
                         }
                         break;
+
 
                     // Option 3: Exit program
                     case 3:

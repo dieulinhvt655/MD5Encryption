@@ -8,6 +8,29 @@ public class AccountManager {
     // Used to automatically generate unique ID for each account
     private int autoId = 1;
 
+    // Change password after login
+    public boolean changePassword(String username, String oldPassword, String newPassword) {
+        // Encrypt old password to compare with stored MD5 password
+        String oldMd5 = Util.md5Encrypt(oldPassword);
+        // Encrypt new password before saving
+        String newMd5 = Util.md5Encrypt(newPassword);
+        // Find account by username
+        for (Account acc : accounts) {
+            // Check username and old password are correct
+            if (acc.getUsername().equals(username)
+                    && acc.getPassword().equals(oldMd5)) {
+                // Update password with new encrypted password
+                acc.setPassword(newMd5);
+
+                // Change password successfully
+                return true;
+            }
+        }
+
+        // Old password incorrect or user not found
+        return false;
+    }
+
     // Add a new account with validation and MD5 encryption
     public int addAccount(String username, String password, String name,
                           String phone, String email, String address, String dob) throws Exception {
