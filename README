@@ -1,81 +1,119 @@
-Yeu cau:
-1. Viet chuong trinh quan ly tai khoan va dang nhap su dung ma hoa MD5
-2. Chuong trinh chay theo menu console
-   1. Add account
-   2. Login
-   3. Exit
+Account Management & Login System (MD5 Encryption)
 
-Chuc nang he thong:
-- Them tai khoan moi
-- Dang nhap tai khoan
-- Kiem tra du lieu dau vao
-- Ma hoa mat khau bang MD5
+1. Yêu cầu chung
+- Viết chương trình quản lý tài khoản và đăng nhập sử dụng mã hóa MD5.
+- Chương trình chạy theo menu console gồm các chức năng:
+  1. Add account
+  2. Login
+  3. Exit
 
-Mo ta xu ly Add Account:
-- Nhap username
-  + khong duoc rong
-  + khong duoc trung
-- Nhap password
-  + khong duoc rong
-  + se duoc ma hoa MD5 truoc khi luu
-- Nhap name (khong bat buoc validate)
-- Nhap phone
-  + chi chua so
-  + do dai 10 hoac 11 chu so
-- Nhap email
-  + dung dinh dang email (regex)
-- Nhap address
-- Nhap dob
-  + dinh dang dd/MM/yyyy
-  + ngay phai hop le
+2. Chức năng hệ thống
+- Thêm tài khoản mới
+- Đăng nhập tài khoản
+- Đổi mật khẩu sau khi đăng nhập thành công
+- Kiểm tra dữ liệu đầu vào
+- Mã hóa mật khẩu bằng thuật toán MD5
 
-Xu ly password:
-- Nguoi dung nhap password dang text
-- He thong ma hoa password bang MD5
-- Chi luu gia tri MD5, khong luu password goc
+3. Mô tả xử lý chức năng Add Account
 
-Mo ta chuc nang Login:
-- Nhap username
-- Nhap password
-- Ma hoa password nhap vao bang MD5
-- So sanh username va password MD5 voi du lieu da luu
-- Neu dung -> login success
-- Neu sai -> login failed
+3.1 Username
+- Không được rỗng
+- Không được trùng với username đã tồn tại trong hệ thống
 
-Cac function chinh:
-- addAccount():
-  + validate du lieu
-  + ma hoa password
-  + luu tai khoan vao danh sach
-- login():
-  + ma hoa password
-  + kiem tra thong tin dang nhap
-- isUsernameExist():
-  + kiem tra trung username
+3.2 Password
+- Không được rỗng
+- Mật khẩu được mã hóa MD5 trước khi lưu
+- Hệ thống chỉ lưu giá trị MD5, không lưu mật khẩu gốc
 
-Cac function trong Util:
-- InputNotEmpty(): nhap chuoi khong rong
-- InputPhone(): kiem tra so dien thoai
-- InputEmail(): kiem tra email
-- InputDate(): kiem tra ngay sinh
-- isValidEmail(): regex email
-- isValidDate(): kiem tra ngay hop le
-- md5Encrypt(): ma hoa MD5
+3.3 Name
+- Không bắt buộc validate
 
-Luong hoat dong:
-1. Hien thi menu
-2. Nguoi dung chon chuc nang
-3. Nhap du lieu
-4. He thong validate
-5. Thuc hien add account hoac login
-6. Hien thi ket qua
-7. Quay lai menu hoac thoat
+3.4 Phone
+- Chỉ chứa ký tự số
+- Độ dài 10 hoặc 11 chữ số
 
-Test case:
-1. Username rong -> bao loi
-2. Username trung -> bao loi
-3. Phone sai dinh dang -> nhap lai
-4. Email sai -> nhap lai
-5. Dob sai -> nhap lai
-6. Dang nhap sai username hoac password -> login failed
-7. Dang nhap dung -> login success
+3.5 Email
+- Đúng định dạng email
+- Kiểm tra bằng Regular Expression (Regex)
+
+3.6 Address
+- Không bắt buộc validate
+
+3.7 Date of Birth (DOB)
+- Định dạng dd/MM/yyyy
+- Ngày phải hợp lệ (ví dụ: không tồn tại 31/02)
+
+4. Xử lý mật khẩu
+- Người dùng nhập mật khẩu dưới dạng text
+- Hệ thống mã hóa mật khẩu bằng MD5
+- Chỉ lưu giá trị MD5 trong hệ thống
+- Khi đăng nhập hoặc đổi mật khẩu, mật khẩu nhập vào cũng được mã hóa MD5 để so sánh
+
+5. Mô tả chức năng Login
+- Người dùng nhập username
+- Người dùng nhập password
+- Hệ thống mã hóa password nhập vào bằng MD5
+- So sánh username và password MD5 với dữ liệu đã lưu
+- Nếu đúng: login success và hiển thị lời chào
+- Nếu sai: login failed
+
+6. Chức năng đổi mật khẩu sau khi Login thành công
+- Sau khi login success, hệ thống hỏi người dùng có muốn đổi mật khẩu hay không
+- Nếu người dùng chọn Yes:
+  + Nhập old password
+  + Nhập new password
+  + Nhập lại new password (renew password)
+- Điều kiện đổi mật khẩu:
+  + Old password phải đúng
+  + New password không được rỗng
+  + New password và renew password phải giống nhau
+- Mật khẩu mới được mã hóa MD5 trước khi lưu
+
+7. Các function chính trong chương trình
+
+7.1 addAccount()
+- Validate dữ liệu đầu vào
+- Mã hóa password bằng MD5
+- Lưu tài khoản vào danh sách
+- Trả về id của tài khoản mới
+
+7.2 login()
+- Mã hóa password nhập vào bằng MD5
+- Kiểm tra thông tin đăng nhập
+- Trả về trạng thái đăng nhập (true/false)
+
+7.3 changePassword()
+- Kiểm tra old password
+- Mã hóa và cập nhật new password
+
+7.4 isUsernameExist()
+- Kiểm tra username đã tồn tại hay chưa
+
+8. Các function trong Util
+- InputNotEmpty(): nhập chuỗi không rỗng
+- InputPhone(): kiểm tra số điện thoại (10–11 chữ số)
+- InputEmail(): kiểm tra email hợp lệ
+- InputDate(): kiểm tra ngày sinh
+- isValidEmail(): kiểm tra email bằng regex
+- isValidDate(): kiểm tra ngày hợp lệ theo dd/MM/yyyy
+- md5Encrypt(): mã hóa chuỗi bằng MD5
+
+9. Luồng hoạt động của chương trình
+1. Hiển thị menu
+2. Người dùng chọn chức năng
+3. Nhập dữ liệu
+4. Hệ thống validate dữ liệu
+5. Thực hiện Add Account, Login hoặc Change Password
+6. Hiển thị kết quả
+7. Quay lại menu hoặc thoát chương trình
+
+10. Test case
+1. Username rỗng → báo lỗi
+2. Username trùng → báo lỗi
+3. Phone sai định dạng → yêu cầu nhập lại
+4. Email sai định dạng → yêu cầu nhập lại
+5. DOB sai định dạng → yêu cầu nhập lại
+6. Đăng nhập sai username hoặc password → login failed
+7. Đăng nhập đúng → login success
+8. Old password sai khi đổi mật khẩu → báo lỗi
+9. Đổi mật khẩu thành công → cập nhật mật khẩu mới
